@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.office.dao.SsubmitMapper" >
+  <resultMap id="BaseResultMap" type="com.office.pojo.Ssubmit" >
+    <id column="SSN" property="ssn" jdbcType="INTEGER" />
+    <result column="ANo" property="ano" jdbcType="INTEGER" />
+    <result column="VNo" property="vno" jdbcType="INTEGER" />
+    <result column="SSName" property="ssname" jdbcType="VARCHAR" />
+    <result column="SSDepartment" property="ssdepartment" jdbcType="VARCHAR" />
+    <result column="SSSName" property="sssname" jdbcType="VARCHAR" />
+    <result column="SSSType" property="ssstype" jdbcType="VARCHAR" />
+    <result column="SSSNumber" property="sssnumber" jdbcType="VARCHAR" />
+    <result column="SSTime" property="sstime" jdbcType="REAL" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    SSN, ANo, VNo, SSName, SSDepartment, SSSName, SSSType, SSSNumber, SSTime
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.office.pojo.SsubmitExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from ssubmit
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from ssubmit
+    where SSN = #{ssn,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from ssubmit
+    where SSN = #{ssn,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.office.pojo.SsubmitExample" >
+    delete from ssubmit
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.office.pojo.Ssubmit" >
+    insert into ssubmit (SSN, ANo, VNo, 
+      SSName, SSDepartment, SSSName, 
+      SSSType, SSSNumber, SSTime
+      )
+    values (#{ssn,jdbcType=INTEGER}, #{ano,jdbcType=INTEGER}, #{vno,jdbcType=INTEGER}, 
+      #{ssname,jdbcType=VARCHAR}, #{ssdepartment,jdbcType=VARCHAR}, #{sssname,jdbcType=VARCHAR}, 
+      #{ssstype,jdbcType=VARCHAR}, #{sssnumber,jdbcType=VARCHAR}, #{sstime,jdbcType=REAL}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.office.pojo.Ssubmit" >
+    insert into ssubmit
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="ssn != null" >
+        SSN,
+      </if>
+      <if test="ano != null" >
+        ANo,
+      </if>
+      <if test="vno != null" >
+        VNo,
+      </if>
+      <if test="ssname != null" >
+        SSName,
+      </if>
+      <if test="ssdepartment != null" >
+        SSDepartment,
+      </if>
+      <if test="sssname != null" >
+        SSSName,
+      </if>
+      <if test="ssstype != null" >
+        SSSType,
+      </if>
+      <if test="sssnumber != null" >
+        SSSNumber,
+      </if>
+      <if test="sstime != null" >
+        SSTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="ssn != null" >
+        #{ssn,jdbcType=INTEGER},
+      </if>
+      <if test="ano != null" >
+        #{ano,jdbcType=INTEGER},
+      </if>
+      <if test="vno != null" >
+        #{vno,jdbcType=INTEGER},
+      </if>
+      <if test="ssname != null" >
+        #{ssname,jdbcType=VARCHAR},
+      </if>
+      <if test="ssdepartment != null" >
+        #{ssdepartment,jdbcType=VARCHAR},
+      </if>
+      <if test="sssname != null" >
+        #{sssname,jdbcType=VARCHAR},
+      </if>
+      <if test="ssstype != null" >
+        #{ssstype,jdbcType=VARCHAR},
+      </if>
+      <if test="sssnumber != null" >
+        #{sssnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="sstime != null" >
+        #{sstime,jdbcType=REAL},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.office.pojo.SsubmitExample" resultType="java.lang.Integer" >
+    select count(*) from ssubmit
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update ssubmit
+    <set >
+      <if test="record.ssn != null" >
+        SSN = #{record.ssn,jdbcType=INTEGER},
+      </if>
+      <if test="record.ano != null" >
+        ANo = #{record.ano,jdbcType=INTEGER},
+      </if>
+      <if test="record.vno != null" >
+        VNo = #{record.vno,jdbcType=INTEGER},
+      </if>
+      <if test="record.ssname != null" >
+        SSName = #{record.ssname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ssdepartment != null" >
+        SSDepartment = #{record.ssdepartment,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sssname != null" >
+        SSSName = #{record.sssname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ssstype != null" >
+        SSSType = #{record.ssstype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sssnumber != null" >
+        SSSNumber = #{record.sssnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sstime != null" >
+        SSTime = #{record.sstime,jdbcType=REAL},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update ssubmit
+    set SSN = #{record.ssn,jdbcType=INTEGER},
+      ANo = #{record.ano,jdbcType=INTEGER},
+      VNo = #{record.vno,jdbcType=INTEGER},
+      SSName = #{record.ssname,jdbcType=VARCHAR},
+      SSDepartment = #{record.ssdepartment,jdbcType=VARCHAR},
+      SSSName = #{record.sssname,jdbcType=VARCHAR},
+      SSSType = #{record.ssstype,jdbcType=VARCHAR},
+      SSSNumber = #{record.sssnumber,jdbcType=VARCHAR},
+      SSTime = #{record.sstime,jdbcType=REAL}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.office.pojo.Ssubmit" >
+    update ssubmit
+    <set >
+      <if test="ano != null" >
+        ANo = #{ano,jdbcType=INTEGER},
+      </if>
+      <if test="vno != null" >
+        VNo = #{vno,jdbcType=INTEGER},
+      </if>
+      <if test="ssname != null" >
+        SSName = #{ssname,jdbcType=VARCHAR},
+      </if>
+      <if test="ssdepartment != null" >
+        SSDepartment = #{ssdepartment,jdbcType=VARCHAR},
+      </if>
+      <if test="sssname != null" >
+        SSSName = #{sssname,jdbcType=VARCHAR},
+      </if>
+      <if test="ssstype != null" >
+        SSSType = #{ssstype,jdbcType=VARCHAR},
+      </if>
+      <if test="sssnumber != null" >
+        SSSNumber = #{sssnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="sstime != null" >
+        SSTime = #{sstime,jdbcType=REAL},
+      </if>
+    </set>
+    where SSN = #{ssn,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.office.pojo.Ssubmit" >
+    update ssubmit
+    set ANo = #{ano,jdbcType=INTEGER},
+      VNo = #{vno,jdbcType=INTEGER},
+      SSName = #{ssname,jdbcType=VARCHAR},
+      SSDepartment = #{ssdepartment,jdbcType=VARCHAR},
+      SSSName = #{sssname,jdbcType=VARCHAR},
+      SSSType = #{ssstype,jdbcType=VARCHAR},
+      SSSNumber = #{sssnumber,jdbcType=VARCHAR},
+      SSTime = #{sstime,jdbcType=REAL}
+    where SSN = #{ssn,jdbcType=INTEGER}
+  </update>
+</mapper>

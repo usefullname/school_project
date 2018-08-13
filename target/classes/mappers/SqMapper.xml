@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.office.dao.SqMapper" >
+  <resultMap id="BaseResultMap" type="com.office.pojo.Sq" >
+    <id column="SNo" property="sno" jdbcType="INTEGER" />
+    <id column="SSN" property="ssn" jdbcType="INTEGER" />
+    <result column="UUName" property="uuname" jdbcType="VARCHAR" />
+    <result column="UUDepartment" property="uudepartment" jdbcType="VARCHAR" />
+    <result column="USType" property="ustype" jdbcType="VARCHAR" />
+    <result column="USName" property="usname" jdbcType="VARCHAR" />
+    <result column="USNumber" property="usnumber" jdbcType="INTEGER" />
+    <result column="UAName" property="uaname" jdbcType="VARCHAR" />
+    <result column="UTime" property="utime" jdbcType="REAL" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    SNo, SSN, UUName, UUDepartment, USType, USName, USNumber, UAName, UTime
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.office.pojo.SqExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sq
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.office.pojo.SqKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from sq
+    where SNo = #{sno,jdbcType=INTEGER}
+      and SSN = #{ssn,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.office.pojo.SqKey" >
+    delete from sq
+    where SNo = #{sno,jdbcType=INTEGER}
+      and SSN = #{ssn,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.office.pojo.SqExample" >
+    delete from sq
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.office.pojo.Sq" >
+    insert into sq (SNo, SSN, UUName, 
+      UUDepartment, USType, USName, 
+      USNumber, UAName, UTime
+      )
+    values (#{sno,jdbcType=INTEGER}, #{ssn,jdbcType=INTEGER}, #{uuname,jdbcType=VARCHAR}, 
+      #{uudepartment,jdbcType=VARCHAR}, #{ustype,jdbcType=VARCHAR}, #{usname,jdbcType=VARCHAR}, 
+      #{usnumber,jdbcType=INTEGER}, #{uaname,jdbcType=VARCHAR}, #{utime,jdbcType=REAL}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.office.pojo.Sq" >
+    insert into sq
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="sno != null" >
+        SNo,
+      </if>
+      <if test="ssn != null" >
+        SSN,
+      </if>
+      <if test="uuname != null" >
+        UUName,
+      </if>
+      <if test="uudepartment != null" >
+        UUDepartment,
+      </if>
+      <if test="ustype != null" >
+        USType,
+      </if>
+      <if test="usname != null" >
+        USName,
+      </if>
+      <if test="usnumber != null" >
+        USNumber,
+      </if>
+      <if test="uaname != null" >
+        UAName,
+      </if>
+      <if test="utime != null" >
+        UTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="sno != null" >
+        #{sno,jdbcType=INTEGER},
+      </if>
+      <if test="ssn != null" >
+        #{ssn,jdbcType=INTEGER},
+      </if>
+      <if test="uuname != null" >
+        #{uuname,jdbcType=VARCHAR},
+      </if>
+      <if test="uudepartment != null" >
+        #{uudepartment,jdbcType=VARCHAR},
+      </if>
+      <if test="ustype != null" >
+        #{ustype,jdbcType=VARCHAR},
+      </if>
+      <if test="usname != null" >
+        #{usname,jdbcType=VARCHAR},
+      </if>
+      <if test="usnumber != null" >
+        #{usnumber,jdbcType=INTEGER},
+      </if>
+      <if test="uaname != null" >
+        #{uaname,jdbcType=VARCHAR},
+      </if>
+      <if test="utime != null" >
+        #{utime,jdbcType=REAL},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.office.pojo.SqExample" resultType="java.lang.Integer" >
+    select count(*) from sq
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update sq
+    <set >
+      <if test="record.sno != null" >
+        SNo = #{record.sno,jdbcType=INTEGER},
+      </if>
+      <if test="record.ssn != null" >
+        SSN = #{record.ssn,jdbcType=INTEGER},
+      </if>
+      <if test="record.uuname != null" >
+        UUName = #{record.uuname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.uudepartment != null" >
+        UUDepartment = #{record.uudepartment,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ustype != null" >
+        USType = #{record.ustype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.usname != null" >
+        USName = #{record.usname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.usnumber != null" >
+        USNumber = #{record.usnumber,jdbcType=INTEGER},
+      </if>
+      <if test="record.uaname != null" >
+        UAName = #{record.uaname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.utime != null" >
+        UTime = #{record.utime,jdbcType=REAL},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update sq
+    set SNo = #{record.sno,jdbcType=INTEGER},
+      SSN = #{record.ssn,jdbcType=INTEGER},
+      UUName = #{record.uuname,jdbcType=VARCHAR},
+      UUDepartment = #{record.uudepartment,jdbcType=VARCHAR},
+      USType = #{record.ustype,jdbcType=VARCHAR},
+      USName = #{record.usname,jdbcType=VARCHAR},
+      USNumber = #{record.usnumber,jdbcType=INTEGER},
+      UAName = #{record.uaname,jdbcType=VARCHAR},
+      UTime = #{record.utime,jdbcType=REAL}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.office.pojo.Sq" >
+    update sq
+    <set >
+      <if test="uuname != null" >
+        UUName = #{uuname,jdbcType=VARCHAR},
+      </if>
+      <if test="uudepartment != null" >
+        UUDepartment = #{uudepartment,jdbcType=VARCHAR},
+      </if>
+      <if test="ustype != null" >
+        USType = #{ustype,jdbcType=VARCHAR},
+      </if>
+      <if test="usname != null" >
+        USName = #{usname,jdbcType=VARCHAR},
+      </if>
+      <if test="usnumber != null" >
+        USNumber = #{usnumber,jdbcType=INTEGER},
+      </if>
+      <if test="uaname != null" >
+        UAName = #{uaname,jdbcType=VARCHAR},
+      </if>
+      <if test="utime != null" >
+        UTime = #{utime,jdbcType=REAL},
+      </if>
+    </set>
+    where SNo = #{sno,jdbcType=INTEGER}
+      and SSN = #{ssn,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.office.pojo.Sq" >
+    update sq
+    set UUName = #{uuname,jdbcType=VARCHAR},
+      UUDepartment = #{uudepartment,jdbcType=VARCHAR},
+      USType = #{ustype,jdbcType=VARCHAR},
+      USName = #{usname,jdbcType=VARCHAR},
+      USNumber = #{usnumber,jdbcType=INTEGER},
+      UAName = #{uaname,jdbcType=VARCHAR},
+      UTime = #{utime,jdbcType=REAL}
+    where SNo = #{sno,jdbcType=INTEGER}
+      and SSN = #{ssn,jdbcType=INTEGER}
+  </update>
+</mapper>

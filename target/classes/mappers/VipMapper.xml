@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.office.dao.VipMapper" >
+  <resultMap id="BaseResultMap" type="com.office.pojo.Vip" >
+    <id column="VNo" property="vno" jdbcType="INTEGER" />
+    <result column="VName" property="vname" jdbcType="VARCHAR" />
+    <result column="VPass" property="vpass" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    VNo, VName, VPass
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.office.pojo.VipExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from vip
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from vip
+    where VNo = #{vno,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from vip
+    where VNo = #{vno,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.office.pojo.VipExample" >
+    delete from vip
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.office.pojo.Vip" >
+    insert into vip (VNo, VName, VPass
+      )
+    values (#{vno,jdbcType=INTEGER}, #{vname,jdbcType=VARCHAR}, #{vpass,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.office.pojo.Vip" >
+    insert into vip
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="vno != null" >
+        VNo,
+      </if>
+      <if test="vname != null" >
+        VName,
+      </if>
+      <if test="vpass != null" >
+        VPass,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="vno != null" >
+        #{vno,jdbcType=INTEGER},
+      </if>
+      <if test="vname != null" >
+        #{vname,jdbcType=VARCHAR},
+      </if>
+      <if test="vpass != null" >
+        #{vpass,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.office.pojo.VipExample" resultType="java.lang.Integer" >
+    select count(*) from vip
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update vip
+    <set >
+      <if test="record.vno != null" >
+        VNo = #{record.vno,jdbcType=INTEGER},
+      </if>
+      <if test="record.vname != null" >
+        VName = #{record.vname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.vpass != null" >
+        VPass = #{record.vpass,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update vip
+    set VNo = #{record.vno,jdbcType=INTEGER},
+      VName = #{record.vname,jdbcType=VARCHAR},
+      VPass = #{record.vpass,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.office.pojo.Vip" >
+    update vip
+    <set >
+      <if test="vname != null" >
+        VName = #{vname,jdbcType=VARCHAR},
+      </if>
+      <if test="vpass != null" >
+        VPass = #{vpass,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where VNo = #{vno,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.office.pojo.Vip" >
+    update vip
+    set VName = #{vname,jdbcType=VARCHAR},
+      VPass = #{vpass,jdbcType=VARCHAR}
+    where VNo = #{vno,jdbcType=INTEGER}
+  </update>
+</mapper>
